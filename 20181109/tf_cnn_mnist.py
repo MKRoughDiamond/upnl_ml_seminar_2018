@@ -41,7 +41,6 @@ with g.as_default():
     # CNN을 설정
     # tf.layers.conv2d(<input>, <filters>, <kernel_size>, strides=<strides>, activation=<activation>)
     # <input> : layer를 통과하고자 하는 입력 tensor
-    # <units> : filter의 output channel 수 (input channel 수는 <input>에 의해 자동으로 결정)
     # <kernel_size> : filter의 [fh, fw] 값.
     # <strides> : stride의 [sh, sw] 값.
     # <activation> : activation function들이 들어감
