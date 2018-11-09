@@ -54,12 +54,16 @@ with g.as_default():
     optimizer = tf.train.AdamOptimizer(LEARNING_RATE)
     train = optimizer.minimize(loss)
 
-    # accuracy
     # tf.argmax : 최대값의 index값을 return, 즉 예측 결과
-    # tf.contrib.metrics.accuracy : 정확도 측정
     y_pred = tf.argmax(y_,axis=-1,output_type=tf.int32)
-    acc = tf.contrib.metrics.accuracy(labels = Y, predictions = y_pred)
 
+# 정확도 계산(같은 것으로 예측할 확률)
+def get_acc(label,prediction):
+    corr = .0
+    for i in range(BATCH_SIZE):
+        if label[i]==prediction[i]:
+            corr+=1
+    return corr/BATCH_SIZE
 
 # 학습
 with tf.Session(graph=g) as sess:
@@ -84,7 +88,8 @@ with tf.Session(graph=g) as sess:
     for i in range((len(x_test)//BATCH_SIZE)):
         batch_x = x_test[i*BATCH_SIZE:(i+1)*BATCH_SIZE]
         batch_y = y_test[i*BATCH_SIZE:(i+1)*BATCH_SIZE]
-        acc_batch+=sess.run(acc,feed_dict={X:batch_x,Y:batch_y})
+        predictions=sess.run(y_pred,feed_dict={X:batch_x})
+        acc_batch+=get_acc(batch_y,predictions)
     acc=acc_batch/(len(x_test)//BATCH_SIZE)
     print('-'*20)
     print('acc : {:.6f}'.format(acc))
