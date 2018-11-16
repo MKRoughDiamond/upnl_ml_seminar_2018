@@ -11,10 +11,10 @@ with open('input.txt','r') as f:
 char_set = list(set(sentence))
 char_dic = {w: i for i, w in enumerate(char_set)}
 
-data_dim = len(char_set)
-hidden_size = len(char_set)
-num_classes = len(char_set)
-sequence_length = 10  # Any arbitrary number
+data_dim = len(char_set) # RNN input size (one hot size)
+hidden_size = len(char_set)  # RNN output size
+num_classes = len(char_set) # final output size (after RNN or softmax, etc.)
+sequence_length = 10  # size of chunk. Any arbitrary number
 learning_rate = 0.1
 
 dataX = []
