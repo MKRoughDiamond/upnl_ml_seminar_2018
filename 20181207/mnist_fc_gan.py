@@ -61,7 +61,7 @@ with g.as_default():
     Z = tf.placeholder(tf.float32, [None, random_size])
 
     fake_x = generator(Z) # G(z)
-    result_of_fake = discriminator(fake_x) # D(G(z)
+    result_of_fake = discriminator(fake_x) # D(G(z))
 
     # discriminator 함수를 두 번째 호출 -> reuse = True로 해줘야 변수를 새로 만들지 않음
     result_of_real = discriminator(X , True) # D(x)
